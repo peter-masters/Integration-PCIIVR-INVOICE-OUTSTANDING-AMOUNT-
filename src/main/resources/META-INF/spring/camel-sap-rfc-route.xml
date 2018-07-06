@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+	<!-- Configures the Inbound and Outbound SAP Connections -->
+	<bean
+		class="org.fusesource.camel.component.sap.SapConnectionConfiguration"
+		id="springManagedSapConfiguration">
+		<property name="destinationDataStore">
+			<map>
+				<entry key="quickstartDest"
+					value-ref="springManagedPCIIVRSAPDestinationData" />
+			</map>
+		</property>
+	</bean>
+	<!-- Configures an Outbound SAP Connection -->
+	<!-- *** Please enter the connection property values for your environment 
+		*** -->
+	<bean
+		class="org.fusesource.camel.component.sap.model.rfc.impl.DestinationDataImpl"
+		id="springManagedPCIIVRSAPDestinationData">
+		<property name="ashost" value="betsgill.uk.oup.com" />
+		<property name="sysnr" value="00" />
+		<property name="client" value="030" />
+		<property name="user" value="R3DSPSSERV01" />
+		<property name="passwd" value="SpS_Oxf0rD01" />
+		<property name="lang" value="en" />
+	</bean>
+	<camelContext
+		xmlns="http://camel.apache.org/schema/spring" trace="false">
+		<route id="id_RouteToFetchOutstandingBalance" autoStartup="false">
+			<!-- <from id="id_DummyFrom" uri="timer://foo?fixedRate=true&amp;period=60000" 
+				/> -->
+			<from uri="direct:RouteToFetchOutstandingBalance" />
+			<process
+				ref="springManagedSAPBapiInvoiceBalanceRequestProcessor"></process>
+			<to id="id_CallSAPToGetInvoiceBalance"
+				uri="sap-srfc-destination:quickstartDest:ZPCI_INVOICE_BALANCE" />
+			<log loggingLevel="INFO" id="_log1" message="${body}"
+				logName="com.oup.route" />
+			<process
+				ref="springManagedSAPBapiInvoiceBalanceResponseProcessor"></process>
+		</route>
+	</camelContext>
+
+</beans>
