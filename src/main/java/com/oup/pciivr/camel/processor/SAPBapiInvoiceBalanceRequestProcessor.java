@@ -14,7 +14,7 @@ public class SAPBapiInvoiceBalanceRequestProcessor implements Processor {
 	public void process(Exchange exchange) throws Exception {
 		// TODO Auto-generated method stub
 		SapSynchronousRfcDestinationEndpoint endpoint = exchange.getContext().getEndpoint(
-				"sap-srfc-destination:quickstartDest:ZPCI_INVOICE_BALANCE", SapSynchronousRfcDestinationEndpoint.class);
+				"sap-srfc-destination:sapRFCDest:ZPCI_INVOICE_BALANCE", SapSynchronousRfcDestinationEndpoint.class);
 		Structure request = endpoint.createRequest();
 		request.put("I_BELNR", StringUtils.leftPad(exchange.getProperty("INVOICE_NUM", String.class), 10, "0"));
 		exchange.getIn().setBody(request);

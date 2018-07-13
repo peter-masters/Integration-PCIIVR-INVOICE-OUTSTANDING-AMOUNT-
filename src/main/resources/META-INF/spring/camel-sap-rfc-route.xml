@@ -11,7 +11,7 @@
 		id="springManagedSapConfiguration">
 		<property name="destinationDataStore">
 			<map>
-				<entry key="quickstartDest"
+				<entry key="sapRFCDest"
 					value-ref="springManagedPCIIVRSAPDestinationData" />
 			</map>
 		</property>
@@ -31,15 +31,17 @@
 	</bean>
 	<camelContext
 		xmlns="http://camel.apache.org/schema/spring" trace="false">
-		<route id="id_RouteToFetchOutstandingBalance" autoStartup="false">
+		<route id="id_RouteToFetchOutstandingBalance">
 			<!-- <from id="id_DummyFrom" uri="timer://foo?fixedRate=true&amp;period=60000" 
 				/> -->
 			<from uri="direct:RouteToFetchOutstandingBalance" />
 			<process
 				ref="springManagedSAPBapiInvoiceBalanceRequestProcessor"></process>
+			<log loggingLevel="INFO" id="id_LogRequest" message="${body}"
+				logName="com.oup.route" />
 			<to id="id_CallSAPToGetInvoiceBalance"
-				uri="sap-srfc-destination:quickstartDest:ZPCI_INVOICE_BALANCE" />
-			<log loggingLevel="INFO" id="_log1" message="${body}"
+				uri="sap-srfc-destination:sapRFCDest:ZPCI_INVOICE_BALANCE" />
+			<log loggingLevel="INFO" id="id_LogResponse" message="${body}"
 				logName="com.oup.route" />
 			<process
 				ref="springManagedSAPBapiInvoiceBalanceResponseProcessor"></process>
