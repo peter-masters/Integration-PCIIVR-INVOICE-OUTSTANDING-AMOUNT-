@@ -3,7 +3,7 @@
 	<include
 		resource="org/springframework/boot/logging/logback/defaults.xml" />
 	<springProperty scope="context" name="LOGFILENAME"
-		source="spring.application.name" defaultValue="defaultLog" />	
+		source="spring.application.name" defaultValue="defaultLog" />
 	<appender name="STDOUT"
 		class="ch.qos.logback.core.ConsoleAppender">
 		<!-- Log message format -->
@@ -14,12 +14,10 @@
 		</encoder>
 	</appender>
 	<springProfile name="default">
-		<property name="LOG_HOME"
-			value="C:/SKG/LOGS/${LOGFILENAME}" />
+		<property name="LOG_HOME" value="C:/SKG/LOGS/${LOGFILENAME}" />
 	</springProfile>
 	<springProfile name="dev,uat,prod">
-		<property name="LOG_HOME"
-			value="/logs/${LOGFILENAME}" />
+		<property name="LOG_HOME" value="/logs/${LOGFILENAME}" />
 	</springProfile>
 
 	<property name="LOG_FILE_NAME" value="${LOGFILENAME}" />
@@ -30,19 +28,20 @@
 		<encoder
 			class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
 			<Pattern>
-				${CONSOLE_LOG_PATTERN}
+				${FILE_LOG_PATTERN}
 			</Pattern>
 		</encoder>
 
 		<rollingPolicy
-			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
 			<!-- rollover daily -->
 			<fileNamePattern>${LOG_HOME}/archived/${LOG_FILE_NAME}.%d{yyyy-MM-dd}.%i.log
 			</fileNamePattern>
-			<timeBasedFileNamingAndTriggeringPolicy
-				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-				<maxFileSize>10MB</maxFileSize>
-			</timeBasedFileNamingAndTriggeringPolicy>
+			<!-- each file should be at most 100MB, keep 60 days worth of history, 
+				but at most 20GB -->
+			<maxFileSize>1GB</maxFileSize>
+			<maxHistory>60</maxHistory>
+			<totalSizeCap>20GB</totalSizeCap>
 		</rollingPolicy>
 
 	</appender>
