@@ -2,8 +2,8 @@
 <configuration>
 	<include
 		resource="org/springframework/boot/logging/logback/defaults.xml" />
-	<springProperty scope="context" name="springAppName"
-		source="spring.application.name" />
+	<springProperty scope="context" name="LOGFILENAME"
+		source="spring.application.name" defaultValue="defaultLog" />	
 	<appender name="STDOUT"
 		class="ch.qos.logback.core.ConsoleAppender">
 		<!-- Log message format -->
@@ -13,8 +13,16 @@
 			<pattern>${CONSOLE_LOG_PATTERN}</pattern>
 		</encoder>
 	</appender>
-	<property name="LOG_HOME" value="/logs" />
-	<property name="LOG_FILE_NAME" value="SAP_PCIIVR_OUTSTANDINGBALANCE" />
+	<springProfile name="default">
+		<property name="LOG_HOME"
+			value="C:/SKG/LOGS/${LOGFILENAME}" />
+	</springProfile>
+	<springProfile name="dev,uat,prod">
+		<property name="LOG_HOME"
+			value="/logs/${LOGFILENAME}" />
+	</springProfile>
+
+	<property name="LOG_FILE_NAME" value="${LOGFILENAME}" />
 
 	<appender name="FILE-AUDIT"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">

@@ -22,11 +22,11 @@
 	<bean
 		class="org.fusesource.camel.component.sap.model.rfc.impl.DestinationDataImpl"
 		id="springManagedPCIIVRSAPDestinationData">
-		<property name="ashost" value="betsgill.uk.oup.com" />
-		<property name="sysnr" value="00" />
-		<property name="client" value="030" />
-		<property name="user" value="R3DSPSSERV01" />
-		<property name="passwd" value="SpS_Oxf0rD01" />
+		<property name="ashost" value="${com.oup.pciivr.sap.serverurl}" />
+		<property name="sysnr" value="${com.oup.pciivr.sap.sysnr}" />
+		<property name="client" value="${com.oup.pciivr.sap.client}" />
+		<property name="user" value="${com.oup.pciivr.sap.username}" />
+		<property name="passwd" value="${com.oup.pciivr.sap.password}" />
 		<property name="lang" value="en" />
 	</bean>
 	<camelContext

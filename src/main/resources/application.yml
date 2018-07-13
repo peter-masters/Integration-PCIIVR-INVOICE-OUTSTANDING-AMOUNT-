@@ -15,6 +15,15 @@ security:
 management:
   security:
     enabled: false
+com:
+  oup:
+    pciivr:
+      sap:
+        username: R3DSPSSERV01
+        password: SpS_Oxf0rD01
+        serverurl: betsgill.uk.oup.com
+        sysnr: 00
+        client: 30         
 ---
 spring:
   profiles: dev
@@ -24,3 +33,48 @@ eureka:
   client:
     service-url:  
       defaultZone: http://localhost:8761/eureka/
+com:
+  oup:
+    pciivr:
+      sap:
+        username: R3DSPSSERV01
+        password: SpS_Oxf0rD01
+        serverurl: betsgill.uk.oup.com
+        sysnr: 00
+        client: 30 
+---
+spring:
+  profiles: uat
+server:
+  port: 10081
+eureka:
+  client:
+    service-url:  
+      defaultZone: http://localhost:8761/eureka/
+com:
+  oup:
+    pciivr:
+      sap:
+        username: R3DSPSSERV01
+        password: SpS_Oxf0rD01
+        serverurl: betsgill.uk.oup.com
+        sysnr: 00
+        client: 30 
+---
+spring:
+  profiles: prod
+server:
+  port: 10081
+eureka:
+  client:
+    service-url:  
+      defaultZone: http://localhost:8761/eureka/
+com:
+  oup:
+    pciivr:
+      sap:
+        username: R3DSPSSERV01
+        password: SpS_Oxf0rD01
+        serverurl: betsgill.uk.oup.com
+        sysnr: 00
+        client: 30
