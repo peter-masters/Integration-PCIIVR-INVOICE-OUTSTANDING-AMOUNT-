@@ -145,7 +145,7 @@
 					<layout>ZIP</layout>
 				</configuration>
 				<version>${spring.boot-version}</version>
-				<executions>
+				<executions>					
 					<execution>
 						<goals>
 							<goal>repackage</goal>

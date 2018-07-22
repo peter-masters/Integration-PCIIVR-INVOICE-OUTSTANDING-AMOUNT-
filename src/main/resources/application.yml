@@ -19,8 +19,8 @@ com:
   oup:
     pciivr:
       sap:
-        username: R3DSPSSERV01
-        password: SpS_Oxf0rD01
+        username: CAMELPCIIVR
+        password: PCI@camel
         serverurl: betsgill.uk.oup.com
         sysnr: 00
         client: 30         
@@ -37,11 +37,11 @@ com:
   oup:
     pciivr:
       sap:
-        username: R3DSPSSERV01
-        password: SpS_Oxf0rD01
+        username: CAMELPCIIVR
+        password: PCI@camel
         serverurl: betsgill.uk.oup.com
         sysnr: 00
-        client: 30 
+        client: 30
 ---
 spring:
   profiles: uat
@@ -55,11 +55,11 @@ com:
   oup:
     pciivr:
       sap:
-        username: R3DSPSSERV01
-        password: SpS_Oxf0rD01
-        serverurl: betsgill.uk.oup.com
+        username: CAMELPCIIVR
+        password: PCI@camel11
+        serverurl: petteril.uk.oup.com
         sysnr: 00
-        client: 30 
+        client: 30
 ---
 spring:
   profiles: prod

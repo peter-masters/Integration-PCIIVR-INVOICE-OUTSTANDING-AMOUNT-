@@ -31,17 +31,15 @@
 	</bean>
 	<camelContext
 		xmlns="http://camel.apache.org/schema/spring" trace="false">
-		<route id="id_RouteToFetchOutstandingBalance">
-			<!-- <from id="id_DummyFrom" uri="timer://foo?fixedRate=true&amp;period=60000" 
-				/> -->
+		<route id="id_RouteToFetchOutstandingBalance">			
 			<from uri="direct:RouteToFetchOutstandingBalance" />
 			<process
 				ref="springManagedSAPBapiInvoiceBalanceRequestProcessor"></process>
-			<log loggingLevel="INFO" id="id_LogRequest" message="${body}"
+			<log loggingLevel="INFO" id="id_LogRequest" message="MAKING THE REQUEST TO SAP WITH PAYLOAD -->${body}"
 				logName="com.oup.route" />
 			<to id="id_CallSAPToGetInvoiceBalance"
 				uri="sap-srfc-destination:sapRFCDest:ZPCI_INVOICE_BALANCE" />
-			<log loggingLevel="INFO" id="id_LogResponse" message="${body}"
+			<log loggingLevel="INFO" id="id_LogResponse" message="RESPONSE BACK FROM SAP-->${body}"
 				logName="com.oup.route" />
 			<process
 				ref="springManagedSAPBapiInvoiceBalanceResponseProcessor"></process>
