@@ -32,6 +32,7 @@
 			<name>redhat GA</name>
 			<url>https://maven.repository.redhat.com/ga/</url>
 		</repository>
+		
 	</repositories>
 
 	<dependencies>
@@ -114,29 +115,14 @@
 	</dependencyManagement>
 
 	<build>
-		<plugins>
+		<plugins>			
 			<plugin>
-				<artifactId>maven-resources-plugin</artifactId>
-				<version>3.1.0</version>
-				<executions>
-					<execution>
-						<id>copy-resources</id>
-						<!-- here the phase you need -->
-						<phase>validate</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${basedir}/target/sapliblinux</outputDirectory>
-							<resources>
-								<resource>
-									<directory>src/sapliblinux</directory>
-									<filtering>true</filtering>
-								</resource>
-							</resources>
-						</configuration>
-					</execution>
-				</executions>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.6.0</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -145,44 +131,14 @@
 					<layout>ZIP</layout>
 				</configuration>
 				<version>${spring.boot-version}</version>
-				<executions>					
+				<executions>
 					<execution>
 						<goals>
 							<goal>repackage</goal>
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
-			<plugin>
-				<groupId>com.spotify</groupId>
-				<artifactId>docker-maven-plugin</artifactId>
-				<configuration>
-					<imageName>saprfctemplate</imageName>
-					<dockerDirectory>docker</dockerDirectory>
-					<resources>
-						<resource>
-							<targetPath>/</targetPath>
-							<directory>${project.build.directory}</directory>
-							<include>${project.build.finalName}.jar</include>
-						</resource>
-						<resource>
-							<targetPath>/</targetPath>
-							<directory>${project.basedir}/src/sapliblinux</directory>
-							<include>sapidoc3.jar</include>
-						</resource>
-						<resource>
-							<targetPath>/</targetPath>
-							<directory>${project.basedir}/src/sapliblinux</directory>
-							<include>sapjco3.jar</include>
-						</resource>
-						<resource>
-							<targetPath>/</targetPath>
-							<directory>${project.basedir}/src/sapliblinux</directory>
-							<include>libsapjco3.so</include>
-						</resource>
-					</resources>
-				</configuration>
-			</plugin>
+			</plugin>	
 		</plugins>
 	</build>
 
