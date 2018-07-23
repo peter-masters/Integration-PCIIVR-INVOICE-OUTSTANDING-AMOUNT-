@@ -138,7 +138,38 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>	
+			</plugin>
+			<!-- DOCKERIZE -->
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<configuration>
+					<imageName>${project.artifactId}-DMG</imageName>
+					<dockerDirectory>docker</dockerDirectory>
+					<resources>
+						<resource>
+							<targetPath>/</targetPath>
+							<directory>${project.build.directory}</directory>
+							<include>${project.build.finalName}.jar</include>
+						</resource>
+						<resource>
+							<targetPath>/</targetPath>
+							<directory>${project.basedir}/src/sapliblinux</directory>
+							<include>sapidoc3.jar</include>
+						</resource>
+						<resource>
+							<targetPath>/</targetPath>
+							<directory>${project.basedir}/src/sapliblinux</directory>
+							<include>sapjco3.jar</include>
+						</resource>
+						<resource>
+							<targetPath>/</targetPath>
+							<directory>${project.basedir}/src/sapliblinux</directory>
+							<include>libsapjco3.so</include>
+						</resource>
+					</resources>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 

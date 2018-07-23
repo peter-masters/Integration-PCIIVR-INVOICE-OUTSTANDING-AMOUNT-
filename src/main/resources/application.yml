@@ -38,7 +38,7 @@ com:
     pciivr:
       sap:
         username: CAMELPCIIVR
-        password: PCI@camel
+        password: PCI@camel11
         serverurl: betsgill.uk.oup.com
         sysnr: 00
         client: 30
