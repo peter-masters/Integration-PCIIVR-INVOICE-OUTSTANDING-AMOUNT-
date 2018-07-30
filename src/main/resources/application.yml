@@ -24,8 +24,6 @@ com:
 ---
 spring:
   profiles: dev
-server:
-  port: 10081
 eureka:
   client:
     enabled: true
@@ -45,8 +43,6 @@ com:
 ---
 spring:
   profiles: uat
-server:
-  port: 10081
 eureka:
   client:
     enabled: true
@@ -66,8 +62,6 @@ com:
 ---
 spring:
   profiles: prod
-server:
-  port: 10081
 eureka:
   client:
     enabled: true
