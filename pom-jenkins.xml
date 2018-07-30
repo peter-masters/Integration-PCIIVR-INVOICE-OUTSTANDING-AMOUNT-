@@ -166,7 +166,7 @@
 									<exec>
 										<arg>java</arg>										
 										<arg>-Xms512m</arg>
-										<arg>-Xmx2g/</arg>
+										<arg>-Xmx1g/</arg>
 										<arg>-Dloader.path=/saplibs/</arg>
 										<arg>-jar</arg>										
 										<arg>/maven/${project.build.finalName}.jar</arg>
