@@ -27,6 +27,7 @@
 		<spring.boot-version>1.5.14.RELEASE</spring.boot-version>
 		<build-profile>dev</build-profile>
 		<docker-host>http://10.128.3.135:2375</docker-host>
+		<docker-image-name>pciivr</docker-image-name>
 	</properties>
 	<repositories>
 		<repository>
@@ -154,8 +155,8 @@
 					<dockerHost>${docker-host}</dockerHost>
 					<images>
 						<image>
-							<name>pciivr1</name>
-							<alias>${build-profile}-pciivr1</alias>
+							<name>${docker-image-name}</name>
+							<alias>${build-profile}-${docker-image-name}</alias>
 							<build>
 								<from>gboxfjnkprd01.uk.oup.com:9443/springboot/ubuntuorajdk8latest</from>
 								<!-- This is the same ENTRYPOINT used in a Dockerfile -->
