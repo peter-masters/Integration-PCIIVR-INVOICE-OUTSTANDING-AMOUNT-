@@ -157,7 +157,7 @@
 							<name>pciivr1</name>
 							<alias>${build-profile}-pciivr1</alias>
 							<build>
-								<from>saibalkumarghosh/ubuntuorajdk8latest:v2</from>
+								<from>gboxfjnkprd01.uk.oup.com:9443/springboot/ubuntuorajdk8latest</from>
 								<!-- This is the same ENTRYPOINT used in a Dockerfile -->
 								<entryPoint>
 									<exec>
