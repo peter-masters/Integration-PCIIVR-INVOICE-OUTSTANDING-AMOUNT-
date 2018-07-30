@@ -27,7 +27,7 @@
 		<spring.boot-version>1.5.14.RELEASE</spring.boot-version>
 		<!-- ADD THESE LINES AS THEY WLL BE REQUIRED FOR CI-CD PROCESS -->
 		<build-profile>dev</build-profile>
-		<docker-host>http://10.128.3.135:2375</docker-host>
+		<docker-host>http://localhost:2375</docker-host>
 		<docker-image-name>pciivr</docker-image-name>
 		<!-- ADD THESE LINES AS THEY WLL BE REQUIRED FOR CI-CD PROCESS -->
 	</properties>
