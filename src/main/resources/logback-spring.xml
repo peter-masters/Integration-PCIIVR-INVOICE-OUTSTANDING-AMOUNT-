@@ -3,7 +3,7 @@
 	<include
 		resource="org/springframework/boot/logging/logback/defaults.xml" />
 	<springProperty scope="context" name="LOGFILENAME"
-		source="spring.application.name" defaultValue="defaultLog" />
+		source="spring.application.name" defaultValue="defaultLog" />	
 	<appender name="STDOUT"
 		class="ch.qos.logback.core.ConsoleAppender">
 		<!-- Log message format -->
@@ -14,10 +14,16 @@
 		</encoder>
 	</appender>
 	<springProfile name="default">
-		<property name="LOG_HOME" value="C:/SKG/LOGS/${LOGFILENAME}" />
+		<property name="LOG_HOME" value="${HOMEPATH}/LOGS/${LOGFILENAME}" />
 	</springProfile>
-	<springProfile name="dev,uat,prod">
-		<property name="LOG_HOME" value="/logs/${LOGFILENAME}" />
+	<springProfile name="dev">
+		<property name="LOG_HOME" value="/logs/${LOGFILENAME}/dev" />
+	</springProfile>
+	<springProfile name="uat">
+		<property name="LOG_HOME" value="/logs/${LOGFILENAME}/uat" />
+	</springProfile>
+	<springProfile name="prod">
+		<property name="LOG_HOME" value="/logs/${LOGFILENAME}/prod" />
 	</springProfile>
 
 	<property name="LOG_FILE_NAME" value="${LOGFILENAME}" />

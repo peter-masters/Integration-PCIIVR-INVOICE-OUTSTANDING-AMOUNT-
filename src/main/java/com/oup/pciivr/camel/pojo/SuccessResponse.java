@@ -13,9 +13,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "invoiceNumber", "balance", "currencyCode" })
+@JsonPropertyOrder({ "invoiceNumber", "balance", "currencyCode","documentType" })
 public class SuccessResponse {
 
+	/**
+	 * Document Type
+	 * <p>
+	 * 
+	 * (Required)
+	 * 
+	 */
+	@JsonProperty("documentType")
+	private String documentType = "";
 	/**
 	 * Invoice Number
 	 * <p>
@@ -117,6 +126,18 @@ public class SuccessResponse {
 	public void setCurrencyCode(String currencyCode) {
 		this.currencyCode = currencyCode;
 	}
+	
+	
+
+	@JsonProperty("documentType")
+	public String getDocumentType() {
+		return documentType;
+	}
+
+	@JsonProperty("documentType")
+	public void setDocumentType(String documentType) {
+		this.documentType = documentType;
+	}
 
 	@JsonAnyGetter
 	public Map<String, Object> getAdditionalProperties() {
@@ -131,7 +152,7 @@ public class SuccessResponse {
 	@Override
 	public String toString() {
 		return new ToStringBuilder(this).append("invoiceNumber", invoiceNumber).append("balance", balance)
-				.append("currencyCode", currencyCode).append("additionalProperties", additionalProperties).toString();
+				.append("currencyCode", currencyCode).append("documentType", documentType).append("additionalProperties", additionalProperties).toString();
 	}
 
 }

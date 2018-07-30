@@ -21,6 +21,7 @@ public class SAPBapiInvoiceBalanceResponseProcessor implements Processor {
 		Structure response = exchange.getIn().getBody(Structure.class);
 		BigDecimal outstandingBalanceAmount = response.get("E_WRBTR", BigDecimal.class);
 		String outstandingBalanceCurrency = response.get("E_WAERS", String.class);
+		String documentType = response.get("E_BLART", String.class);
 		logger.info("Outstanding amount is::" + outstandingBalanceAmount + " " + outstandingBalanceCurrency);
 		if (outstandingBalanceCurrency == null || outstandingBalanceCurrency.isEmpty()) {
 
@@ -33,7 +34,8 @@ public class SAPBapiInvoiceBalanceResponseProcessor implements Processor {
 		SuccessResponse successResponse = new SuccessResponse();
 		successResponse.setCurrencyCode(outstandingBalanceCurrency);
 		successResponse.setBalance(outstandingBalanceAmount.doubleValue());
-		successResponse.setInvoiceNumber(exchange.getProperty("INVOICE_NUM", String.class));
+		successResponse.setDocumentType(documentType);
+		successResponse.setInvoiceNumber(exchange.getProperty("INVOICE_NUM", String.class));		
 		exchange.getOut().setBody(successResponse);
 
 	}

@@ -25,8 +25,6 @@
 		<java.version>1.8</java.version>
 		<spring-cloud.version>Edgware.SR4</spring-cloud.version>
 		<spring.boot-version>1.5.14.RELEASE</spring.boot-version>
-		<build-profile>dev</build-profile>
-		<docker-host>http://10.128.3.135:2375</docker-host>
 	</properties>
 	<repositories>
 		<repository>
@@ -34,7 +32,7 @@
 			<name>redhat GA</name>
 			<url>https://maven.repository.redhat.com/ga/</url>
 		</repository>
-
+		
 	</repositories>
 
 	<dependencies>
@@ -97,8 +95,7 @@
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
-		</dependency>
-		
+		</dependency>		
 	</dependencies>
 
 	<dependencyManagement>
@@ -122,7 +119,7 @@
 	</dependencyManagement>
 
 	<build>
-		<plugins>
+		<plugins>			
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.6.0</version>
@@ -148,61 +145,34 @@
 			</plugin>
 			<!-- DOCKERIZE -->
 			<plugin>
-				<groupId>io.fabric8</groupId>
-				<artifactId>fabric8-maven-plugin</artifactId>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
 				<configuration>
-					<dockerHost>${docker-host}</dockerHost>
-					<images>
-						<image>
-							<name>pciivr1</name>
-							<alias>${build-profile}-pciivr1</alias>
-							<build>
-								<from>saibalkumarghosh/ubuntuorajdk8latest:v2</from>
-								<!-- This is the same ENTRYPOINT used in a Dockerfile -->
-								<entryPoint>
-									<exec>
-										<arg>java</arg>										
-										<arg>-Dloader.path=/saplibs/</arg>
-										<arg>-jar</arg>										
-										<arg>/maven/${project.build.finalName}.jar</arg>
-									</exec>
-								</entryPoint>
-								<ports>
-									<port>10081</port>
-								</ports>
-								<!-- <env> <JAVA_HOME>/opt/jdk8</JAVA_HOME> <CATALINA_OPTS>-Djava.security.egd=file:/dev/./urandom</CATALINA_OPTS> 
-									</env> -->
-								<assembly>
-									<descriptorRef>artifact</descriptorRef>
-								</assembly>
-							</build>
-							<run>
-								<env>
-									<SPRING_PROFILES_ACTIVE>${build-profile}</SPRING_PROFILES_ACTIVE>
-								</env>
-								<volumes>
-									<bind>
-										<volume>/logs:/logs</volume>
-										<volume>/THIRD-PARTY-DEPENDENCIES/saplibs:/saplibs</volume>
-									</bind>
-								</volumes>
-								<network>
-									<mode>custom</mode>
-									<name>oup-docker-network-${build-profile}</name>
-								</network>
-								<namingStrategy>alias</namingStrategy>
-							</run>
-						</image>
-					</images>
+					<imageName>pciivr</imageName>
+					<dockerDirectory>docker</dockerDirectory>
+					<resources>
+						<resource>
+							<targetPath>/</targetPath>
+							<directory>${project.build.directory}</directory>
+							<include>${project.build.finalName}.jar</include>
+						</resource>
+						<resource>
+							<targetPath>/</targetPath>
+							<directory>${project.basedir}/src/sapliblinux</directory>
+							<include>sapidoc3.jar</include>
+						</resource>
+						<resource>
+							<targetPath>/</targetPath>
+							<directory>${project.basedir}/src/sapliblinux</directory>
+							<include>sapjco3.jar</include>
+						</resource>
+						<resource>
+							<targetPath>/</targetPath>
+							<directory>${project.basedir}/src/sapliblinux</directory>
+							<include>libsapjco3.so</include>
+						</resource>
+					</resources>
 				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>resource</goal>
-							<goal>build</goal>							
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 	</build>

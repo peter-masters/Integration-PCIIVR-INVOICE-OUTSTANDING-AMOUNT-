@@ -9,10 +9,9 @@ import org.springframework.stereotype.Component;
 
 @Component("springManagedSAPBapiInvoiceBalanceRequestProcessor")
 public class SAPBapiInvoiceBalanceRequestProcessor implements Processor {
-
 	@Override
 	public void process(Exchange exchange) throws Exception {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub		
 		SapSynchronousRfcDestinationEndpoint endpoint = exchange.getContext().getEndpoint(
 				"sap-srfc-destination:sapRFCDest:ZPCI_INVOICE_BALANCE", SapSynchronousRfcDestinationEndpoint.class);
 		Structure request = endpoint.createRequest();

@@ -1,4 +1,4 @@
-FROM saibalkumarghosh/ubuntu1404orajdk8latest:v1
+FROM saibalkumarghosh/ubuntuorajdk8latest:v2
 EXPOSE 8080 
 ADD PciIvr-0.0.1-SNAPSHOT.jar PciIvr-0.0.1-SNAPSHOT.jar
 RUN mkdir -p /saplibs

@@ -5,10 +5,7 @@ server:
   port: 8080
 eureka:
   client:
-    service-url:  
-      defaultZone: http://oupeureka:8761/eureka/
-  instance:
-    prefer-ip-address: false
+    enabled: false #WE DO NOT WANT TO RUN THE EUREKA SERVER IN THE DEVELOPMENT MACHINE
 security:
   basic:
     enabled: false
@@ -23,7 +20,7 @@ com:
         password: PCI@camel11
         serverurl: betsgill.uk.oup.com
         sysnr: 00
-        client: 30         
+        client: 30
 ---
 spring:
   profiles: dev
@@ -31,8 +28,11 @@ server:
   port: 10081
 eureka:
   client:
+    enabled: true
     service-url:  
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://dev-oupeureka:8761/eureka/
+  instance:
+    prefer-ip-address: false
 com:
   oup:
     pciivr:
@@ -49,8 +49,11 @@ server:
   port: 10081
 eureka:
   client:
+    enabled: true
     service-url:  
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://uat-oupeureka:8761/eureka/
+  instance:
+    prefer-ip-address: false
 com:
   oup:
     pciivr:
@@ -67,14 +70,17 @@ server:
   port: 10081
 eureka:
   client:
+    enabled: true
     service-url:  
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://prod-oupeureka:8761/eureka/
+  instance:
+    prefer-ip-address: false
 com:
   oup:
     pciivr:
       sap:
-        username: R3DSPSSERV01
-        password: SpS_Oxf0rD01
-        serverurl: betsgill.uk.oup.com
+        username: CAMELPCIIVR
+        password: PCI@camel11
+        serverurl: petteril.uk.oup.com
         sysnr: 00
-        client: 30
+        client: 10
