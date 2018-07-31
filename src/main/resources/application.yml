@@ -30,7 +30,7 @@ eureka:
     service-url:  
       defaultZone: http://dev-oupeureka:8761/eureka/
   instance:
-    prefer-ip-address: false
+    prefer-ip-address: true
 com:
   oup:
     pciivr:
@@ -49,7 +49,7 @@ eureka:
     service-url:  
       defaultZone: http://uat-oupeureka:8761/eureka/
   instance:
-    prefer-ip-address: false
+    prefer-ip-address: true
 com:
   oup:
     pciivr:
@@ -68,7 +68,7 @@ eureka:
     service-url:  
       defaultZone: http://prod-oupeureka:8761/eureka/
   instance:
-    prefer-ip-address: false
+    prefer-ip-address: true
 com:
   oup:
     pciivr:
