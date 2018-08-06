@@ -36,7 +36,7 @@ public class InvoiceBalanceController {
 					.withProperty("INVOICE_NUM", invoiceNumber).build();
 			final Exchange responseExchange = producer.send("direct:RouteToFetchOutstandingBalance", requestExchange);
 			if (!responseExchange.getOut().isFault()
-					&& !responseExchange.getProperty("CamelErrorHandlerHandled", Boolean.class)) {
+					&& responseExchange.getProperty("CamelErrorHandlerHandled")==null) {
 				final SuccessResponse responseBody = responseExchange.getOut().getBody(SuccessResponse.class);
 				return new ResponseEntity<SuccessResponse>(responseBody, HttpStatus.OK);
 			} else {
