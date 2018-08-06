@@ -14,7 +14,7 @@
 		</encoder>
 	</appender>
 	<springProfile name="default">
-		<property name="LOG_HOME" value="${HOMEPATH}/LOGS/${LOGFILENAME}" />
+		<property name="LOG_HOME" value="C:\Users\kumarghs\LOGS\${LOGFILENAME}" />
 	</springProfile>
 	<springProfile name="dev">
 		<property name="LOG_HOME" value="/logs/${LOGFILENAME}/dev" />

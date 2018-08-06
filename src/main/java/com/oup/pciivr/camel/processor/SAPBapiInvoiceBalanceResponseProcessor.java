@@ -25,10 +25,8 @@ public class SAPBapiInvoiceBalanceResponseProcessor implements Processor {
 		logger.info("Outstanding amount is::" + outstandingBalanceAmount + " " + outstandingBalanceCurrency);
 		if (outstandingBalanceCurrency == null || outstandingBalanceCurrency.isEmpty()) {
 
-			exchange.getOut().setFault(true);			
-			exchange.getOut().setBody(new NoReordFoundException(
-					"No data found for invoice number " + exchange.getProperty("INVOICE_NUM", String.class)));
-			return;
+			throw new NoReordFoundException(
+					"No data found for invoice number " + exchange.getProperty("INVOICE_NUM", String.class));
 
 		}
 		SuccessResponse successResponse = new SuccessResponse();

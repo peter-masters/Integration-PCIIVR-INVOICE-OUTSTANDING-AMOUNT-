@@ -30,17 +30,18 @@ public class InvoiceBalanceController {
 			MediaType.APPLICATION_XML_VALUE })
 	public ResponseEntity<?> getOutstandingBalanceForInvoice(@PathVariable("invoicenum") String invoiceNumber) {
 		try {
-			if (invoiceNumber == null || invoiceNumber.isEmpty()||invoiceNumber.trim().length()>10)
+			if (invoiceNumber == null || invoiceNumber.isEmpty() || invoiceNumber.trim().length() > 10)
 				throw new ValidationException("Invoice Number cannot be empty or more than 10 charecters");
 			final Exchange requestExchange = ExchangeBuilder.anExchange(camelContext)
 					.withProperty("INVOICE_NUM", invoiceNumber).build();
 			final Exchange responseExchange = producer.send("direct:RouteToFetchOutstandingBalance", requestExchange);
-			if (!responseExchange.getOut().isFault()) {
+			if (!responseExchange.getOut().isFault()
+					&& !responseExchange.getProperty("CamelErrorHandlerHandled", Boolean.class)) {
 				final SuccessResponse responseBody = responseExchange.getOut().getBody(SuccessResponse.class);
 				return new ResponseEntity<SuccessResponse>(responseBody, HttpStatus.OK);
 			} else {
 
-				throw responseExchange.getOut().getBody(Exception.class);
+				throw responseExchange.getProperty("CamelExceptionCaught", Exception.class);
 			}
 
 		}

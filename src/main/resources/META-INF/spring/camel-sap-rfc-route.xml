@@ -43,6 +43,14 @@
 				logName="com.oup.route" />
 			<process
 				ref="springManagedSAPBapiInvoiceBalanceResponseProcessor"></process>
+			<onException id="id_OnAllException">
+				<exception>java.lang.Exception</exception>
+				<redeliveryPolicy maximumRedeliveries="0" />
+				<handled>
+					<constant>true</constant>
+				</handled>
+				<log logName="com.oup.route" loggingLevel="ERROR" message="Exception occurred!!The exception is --> ${exchangeProperty.CamelExceptionCaught}"/>
+			</onException>
 		</route>
 	</camelContext>
 
