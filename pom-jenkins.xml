@@ -160,11 +160,12 @@
 							<name>${docker-image-name}</name>
 							<alias>${build-profile}-${docker-image-name}</alias>
 							<build>
-								<from>gboxfjnkprd01.uk.oup.com:9443/springboot/ubuntuorajdk8latest</from>
+								<from>ibmjava</from>
 								<!-- This is the same ENTRYPOINT used in a Dockerfile -->
 								<entryPoint>
 									<exec>
 										<arg>java</arg>										
+										<arg>-Xshareclasses:name=Cache1</arg>
 										<arg>-Xms512m</arg>
 										<arg>-Xmx2g</arg>
 										<arg>-Dloader.path=/saplibs/</arg>
@@ -189,6 +190,7 @@
 									<bind>
 										<volume>/logs:/logs</volume>
 										<volume>/THIRD-PARTY-DEPENDENCIES/saplibs:/saplibs</volume>
+										<volume>/memcache:/tmp/javasharedresources/</volume>
 									</bind>
 								</volumes>
 								<network>
