@@ -101,7 +101,7 @@
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 		</dependency>
-		
+
 	</dependencies>
 
 	<dependencyManagement>
@@ -160,22 +160,23 @@
 							<name>${docker-image-name}</name>
 							<alias>${build-profile}-${docker-image-name}</alias>
 							<build>
-								<from>gboxfjnkprd01.uk.oup.com:9443/springboot/ubuntuorajdk8latest</from>
+								<from>ibmjava</from>
 								<!-- This is the same ENTRYPOINT used in a Dockerfile -->
 								<entryPoint>
 									<exec>
-										<arg>java</arg>										
+										<arg>java</arg>
 										<arg>-Xms512m</arg>
 										<arg>-Xmx2g</arg>
+										<arg>-Xshareclasses:name=Cache1</arg>
 										<arg>-Dloader.path=/saplibs/</arg>
-										<arg>-jar</arg>										
+										<arg>-jar</arg>
 										<arg>/maven/${project.build.finalName}.jar</arg>
 									</exec>
 								</entryPoint>
 								<ports>
 									<port>8080</port>
 								</ports>
-								<!-- <env> <JAVA_HOME>/opt/jdk8</JAVA_HOME> <CATALINA_OPTS>-Djava.security.egd=file:/dev/./urandom</CATALINA_OPTS> 
+								<!-- <env> <JAVA_HOME>/opt/jdk8</JAVA_HOME> <CATALINA_OPTS>-Djava.security.egd=file:/dev/./urandom</CATALINA_OPTS>
 									</env> -->
 								<assembly>
 									<descriptorRef>artifact</descriptorRef>
@@ -189,6 +190,7 @@
 									<bind>
 										<volume>/logs:/logs</volume>
 										<volume>/THIRD-PARTY-DEPENDENCIES/saplibs:/saplibs</volume>
+										<volume>/memcache:/tmp/javasharedresources/</volume>
 									</bind>
 								</volumes>
 								<network>
@@ -204,7 +206,7 @@
 					<execution>
 						<goals>
 							<goal>resource</goal>
-							<goal>build</goal>							
+							<goal>build</goal>
 						</goals>
 					</execution>
 				</executions>
